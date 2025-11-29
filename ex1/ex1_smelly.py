@@ -25,15 +25,18 @@ class OrderProcessor:
             # (for simplicity, let's assume a simple print statement here)
             print(f"Updating inventory for item {item_id}, reducing stock by {quantity}.")
 
-        # Step 5: Generate receipt
-        receipt = f"Customer ID: {order['customer_id']}\n"
-        receipt += "Items:\n"
-        for item in order["items"]:
-            receipt += f"- {item['name']}: {item['quantity']} x ${item['price']}\n"
-        receipt += f"Total: ${total_price:.2f}\n"
-
+        receipt = generate_receipt(item)
+        
         # Step 6: Send confirmation email
         print(f"Sending email to customer {order['customer_id']} with receipt:\n{receipt}")
 
         return receipt
 
+    def generate_receipt(self, order, item):
+        
+        receipt = f"Customer ID: {order['customer_id']}\n"
+        receipt += "Items:\n"
+        for item in order["items"]:
+            receipt += f"- {item['name']}: {item['quantity']} x ${item['price']}\n"
+        receipt += f"Total: ${total_price:.2f}\n"
+        return receipt
